@@ -1,10 +1,10 @@
-#vaadin-starter-pack
+vaadin-starter-pack
 ==============
 
 Template for a simple Vaadin application that only requires a Servlet 3.0 container to run.
 
 
-#Workflow
+Workflow
 ========
 
 To compile the entire project, run "mvn install".
@@ -17,7 +17,7 @@ To produce a deployable production mode WAR:
 - test the war file with "mvn jetty:run-war"
 - if you want to change port mvn jetty:run -Djetty.http.port=<port number>
 
-#Client-Side compilation
+Client-Side compilation
 -------------------------
 
 The generated maven project is using an automatically generated widgetset by default. 
@@ -51,3 +51,7 @@ Using Vaadin pre-releases
 
 If Vaadin pre-releases are not enabled by default, use the Maven parameter
 "-P vaadin-prerelease" or change the activation default value of the profile in pom.xml .
+
+Screen Shots
+------------
+![Age Calculation](/docs/ScreenShot1.png)
