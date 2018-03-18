@@ -1,15 +1,25 @@
 package org.debmalya.jash;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Optional;
+
+import javax.servlet.annotation.WebServlet;
+
+import org.joda.time.Days;
+
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.*;
-
-import javax.servlet.annotation.WebServlet;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.Optional;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.DateField;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.TextField;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser
@@ -22,6 +32,11 @@ import java.util.Optional;
  */
 @Theme("mytheme")
 public class MyUI extends UI {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8441945713990649091L;
 
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
@@ -41,11 +56,29 @@ public class MyUI extends UI {
 			String comment = "Thanks " + name.getValue();
 
 			if (dateOfBirthValue.isPresent()) {
-				long years = ChronoUnit.YEARS.between(dateOfBirthValue.get(), LocalDate.now());
+				ChronoLocalDate nineteen70 = null;
 				
-				comment += ", your age :" + years
-						+ " years .";
+				long years = 0;
+				long months = 0;
+				long days = 0;
+				long actualDays = 0;
+
 				
+				if (dateOfBirthValue.get().isAfter(nineteen70)) {
+					years = ChronoUnit.YEARS.between(dateOfBirthValue.get(), LocalDate.now());
+					months = ChronoUnit.MONTHS.between(dateOfBirthValue.get(), LocalDate.now());
+					days = ChronoUnit.DAYS.between(dateOfBirthValue.get(), LocalDate.now());
+					actualDays = days;
+					// one year has 365 days
+					// years = days / 365;
+					days = days % 365;
+					months = days / 30;
+					days = days % 30;
+				}
+
+				comment += ", your age :" + years + " years " + months + " months " + days + " days. (Total "
+						+ actualDays + " days).";
+
 			} else {
 				comment += ", it works!";
 			}
